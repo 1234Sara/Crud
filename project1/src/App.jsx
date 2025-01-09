@@ -14,6 +14,8 @@ import Web from './components/Web'
 import Mobile from './components/Mobile'
 import Desktop from './components/Desktop'
 import Contact from './components/Contact/Contact'
+import Movies from './components/Movies/Movies'
+import TV from './components/TV/TV'
 
 // const router = createBrowserRouter([
 //   {
@@ -83,6 +85,14 @@ const router = createBrowserRouter(
           path: "contact",
           element: <Contact/>
         },  
+        {
+          path: "movies",
+          element: <Movies/>
+        },
+        {
+          path: "TV",
+          element: <TV/>
+        },
         {
           path: "*",
           element: <NotFound/>

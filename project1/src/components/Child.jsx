@@ -1,6 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function Child(props) {
+
+  // let [first, setFirst] = useState(0)
+  // let second = 0
+
+  // function updateFirst() {
+  //   setFirst (first++)
+  //   console.log(first);
+  //   second++
+  //   console.log(second);
+    
+  // }
+
+
     console.log(props);
     const {title, count, price, onSale, id} = props.productInfo
     const {index} = props 
@@ -9,7 +22,7 @@ export default function Child(props) {
     //Update
     
     useEffect(()=>{
-      console.log("counter did updated");
+      console.log(`counter did updated ${id}`);
     }, [count])
 
 // Counter Did Updated is making update first time without any change & in any change it's updated but we shouldn't put empty array.
@@ -51,6 +64,8 @@ export default function Child(props) {
         className='btn btn-outline-primary mx-1'>
           <i className='fas fa-edit'></i>
         </button>
+        {/* <button onClick={()=>updateFirst()}>click me</button>
+        <p>{first} {second}</p> */}
         </div>
 </div>
     
