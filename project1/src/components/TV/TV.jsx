@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useEffect } from 'react';
+import Card from '../Card/Card';
 
 export default function TV() {
 
@@ -40,11 +41,7 @@ export default function TV() {
             <div className="row gy-4">
             {
             TV.map((item =>(
-                <div key={item.id} className="col-lg-3">
-                    <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} alt={item.name} className='img-fluid'/>
-                        <h2>{item.name}</h2>
-                        <p>{item.overview}</p>
-                    </div>
+                <Card key={item.id} item = {item}/>
             )))}
             </div>
         </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import Card from '../Card/Card'
 
 export default function Movies() {
 
@@ -24,16 +25,20 @@ export default function Movies() {
             // const movies = data.results  "We can't make local define here we should make use state"
             
             setMovies(data.results)
-            setIsLoading(false)
+            // setIsLoading(false)
+            setApiError(null)
             console.log(data.results);
         } 
         
         catch (error) {
             console.log(error);
-            setIsLoading(false)
+            // setIsLoading(false)
+            setMovies(null)
             setApiError(error.response.data.status_message)
         }
-        
+        finally {
+            setIsLoading(false)
+        }
         }
 
         useEffect(() => {
@@ -46,23 +51,22 @@ export default function Movies() {
         
         <div className="container">
          <div className="row gy-4">
-            {isLoading ? (<h1>Loading...</h1>) : 
+         {isLoading && (<h1>Loading...</h1>)}
+         { apiError && <div className='alert alert-danger'>{apiError}</div>}
+            {(
+            // isLoading ? (<h1>Loading...</h1>) : 
             
-            apiError ?
-            <div className='alert alert-danger'>{apiError}</div>
-            : 
-            (
+            // apiError ?
+            // <div className='alert alert-danger'>{apiError}</div>
+            // : 
+            
                 movies && movies.length > 0 ?
                 // movies.length === 0 ? <h1>No Movies Found</h1>
                 // :
                 movies.map((movie) => (
-                <div key={movie.id} className="col-lg-3">
-                    <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title} className='img-fluid' />
-                    <h2>{movie.title}</h2>
-                    <p>{movie.overview}</p>
-                </div>    
+                    <Card key={movie.id} item = {movie}/>
                 ))
-                : <h1>No Movies Found</h1>
+                : !apiError && <h1>No Movies Found</h1>
             )} 
             </div>
         </div> 
@@ -88,3 +92,17 @@ export default function Movies() {
 // We need to handle error so, we make useState for the errors.
 
 // We make setError of API after catch to handle error and put error.response.data.status_message to display error message & put apiError condition if there is an error put the error message.
+
+// We make movies && movies.length > 0 to check if there are movies or not.
+
+// We make {isLoading && (<h1>Loading...</h1>)} & { apiError && <div className='alert alert-danger'>{apiError}</div>} instead of if condition.
+
+// We make set movies to null if there is an error.
+
+// We make setApiError to null if there is no error.
+
+// finally for fail or success so, to not repeat setIsLoading(false) we put it here.
+
+// We make !apiError && <h1>No Movies Found</h1> to check if there is no error & no movies so, display no movies found.
+
+// We make a card component to not repeat the code of displaying the data in Movies & TV.
